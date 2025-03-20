@@ -47,6 +47,20 @@ def tap(x, y):
         state['mark'] = None
     
     tap_count += 1
+    check_game_status()
+
+def check_game_status():
+    "Detectar si todos los cuadros han sido destapados."
+    if all(not h for h in hide):  # Si todos los elementos en hide son False
+        display_message("¡Juego completo!", -200, -200)
+
+def display_message(message, x, y):
+    "Mostrar un mensaje en la pantalla."
+    up()
+    goto(x, y)
+    color('black')
+    write(message, font=('Arial', 20, 'normal'))
+
 
 def draw():
     """Draw image and tiles."""
