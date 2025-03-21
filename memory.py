@@ -1,9 +1,9 @@
 from random import *
 from turtle import *
-
 from freegames import path
 
 car = path('car.gif')
+colors = colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "cyan","magenta", "lime", "teal", "lavender", "brown", "beige", "maroon", "navy","olive", "coral", "aqua", "gold", "silver", "lightcoral", "violet", "indigo","turquoise", "salmon", "lightgray", "aquamarine", "firebrick", "lawngreen", "tan", "crimson"] * 2
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
@@ -39,7 +39,7 @@ def tap(x, y):
     spot = index(x, y)
     mark = state['mark']
 
-    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+    if mark is None or mark == spot or colors[mark] != colors[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
@@ -49,12 +49,12 @@ def tap(x, y):
     tap_count += 1
 
 def check_game_status():
-    "Detectar si todos los cuadros han sido destapados."
-    if all(not h for h in hide):  # Si todos los elementos en hide son False
+    """Check if all tiles are revealed"""
+    if all(not h for h in hide):  # If all elements in hide are False
         display_message("¡Juego completo!", -200, -200)
 
 def display_message(message, x, y):
-    "Mostrar un mensaje en la pantalla."
+    """Show a message on the screen"""
     up()
     goto(x, y)
     color('black')
@@ -78,11 +78,12 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 27, y)  
-        color('black')
-        write(tiles[mark], align='center', font=('Arial', 30, 'normal'))
+        goto(x + 25, y + 5) # Centrar el circulo de color
+        color(colors[mark])
+        begin_fill()
+        circle(20)  
+        end_fill()
 
-    
     # Mostrar el número de taps
     up()
     goto(120, 180)
@@ -91,11 +92,10 @@ def draw():
     update()
     ontimer(draw, 100)
 
-    # Checar si el juego ya terminó 
+    # Checar si el juego ya termino
     check_game_status()
 
-
-shuffle(tiles)
+shuffle(colors)
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()

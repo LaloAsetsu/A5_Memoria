@@ -5,4 +5,5 @@ Se agregó un conteo de taps, cada que se da click a una celda. Aparece un mensa
 Se agregó la deteción de cuando se termina el juego, se muestra el mensaje de juego terminado.
 
 Se agrego la funcionalidad para centrar el numero del cuadro de manera correcta (centro del respectivo cuadro)
- 
+
+Se agrego la funcionalidad de colores para hacer del juego mas intuitivo 
