@@ -47,7 +47,6 @@ def tap(x, y):
         state['mark'] = None
     
     tap_count += 1
-    check_game_status()
 
 def check_game_status():
     "Detectar si todos los cuadros han sido destapados."
@@ -90,6 +89,9 @@ def draw():
     write(f'Taps: {tap_count}', font=('Arial', 15, 'normal'))
     update()
     ontimer(draw, 100)
+
+    # Checar si el juego ya terminó 
+    check_game_status()
 
 
 shuffle(tiles)
