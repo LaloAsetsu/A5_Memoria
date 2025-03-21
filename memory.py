@@ -7,7 +7,7 @@ car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
-
+tap_count = 0
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -34,6 +34,8 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    global tap_count
+    
     spot = index(x, y)
     mark = state['mark']
 
@@ -43,6 +45,20 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+    
+    tap_count += 1
+
+def check_game_status():
+    "Detectar si todos los cuadros han sido destapados."
+    if all(not h for h in hide):  # Si todos los elementos en hide son False
+        display_message("¡Juego completo!", -200, -200)
+
+def display_message(message, x, y):
+    "Mostrar un mensaje en la pantalla."
+    up()
+    goto(x, y)
+    color('black')
+    write(message, font=('Arial', 20, 'normal'))
 
 
 def draw():
@@ -65,9 +81,17 @@ def draw():
         goto(x + 2, y)
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
-
+    
+    # Mostrar el número de taps
+    up()
+    goto(120, 180)
+    color('black')
+    write(f'Taps: {tap_count}', font=('Arial', 15, 'normal'))
     update()
     ontimer(draw, 100)
+
+    # Checar si el juego ya terminó 
+    check_game_status()
 
 
 shuffle(tiles)
